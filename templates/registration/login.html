@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} LoginPage {% endblock %}
+
+{% block main_content %}
+
+<h1>Login</h1>
+{% if form.errors %}
+    <p>Ошибка: пароль или логин неправильные. Попробуйте снова</p>
+{% else %}
+<p>введите логин/пароль:</p>
+{% endif %}
+
+<form action="." method="POST" class="login">
+    
+    {{form.as_p}}
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{next}}" id="">
+    <button type="submit">Submit</button>
+    
+</form>
+
+<a href="{%url "register"%}">Register here</a>
+<p><a href="{% url "password_reset" %}">Забыли пароль?</a></p>
+{% endblock %}

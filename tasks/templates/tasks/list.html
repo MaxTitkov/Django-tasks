@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Задачи на день{% endblock %}
+
+{% block extra_head %}
+  <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
+
+{% block main_content %}
+  <h1>Текущие задачи</h1>
+  <ul id="todo-list">
+  {% for task in tasks %}
+    {% if task.is_completed %}
+    <li class="completed">
+      <input class='checkbox' data-uid={{ task.id }} type='checkbox' disabled='disabled' checked='checked'/>
+    {% else %}
+    <li>
+      <input class='checkbox' data-uid={{ task.id }} type='checkbox' />
+    {% endif %}
+    {% if task.priority == task.PRIORITY_HIGH %}
+    <span class="badge badge-pill badge-danger">&nbsp;</span>
+    {% elif task.priority == task.PRIORITY_MEDIUM%}
+    <span class="badge badge-pill badge-primary">&nbsp;</span>
+    {% elif task.prioriy == task.PRIORITY_LOW %}
+    <span class="badge badge-pill badge-success">&nbsp;</span>
+    {% endif %}
+    <a href="{% url 'details' task.id%}">{{task}}</a>
+      <a class="remove" href="/tasks/delete/{{ task.id }}">X</a>
+      <hr/>
+    </li>
+  {% endfor %}
+  </ul>
+<ul class="list-inline">
+  {% for tag in tags %}
+    <li class="list-inline-item"><span class="badge badge-info">{{tag}}</span></li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'create' %}">Add new task</a>
+
+<a href="{% url 'logout' %}">Logout</a>
+{% endblock %}

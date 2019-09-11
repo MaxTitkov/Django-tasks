@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Success!{% endblock %}
+
+{% block main_content %}
+    <h1>Success!</h1>
+    <p>Its alreade been completed, {{new_user.name}}!</p>
+    <p>Now, login here:</p>
+    <a href="{% url 'login' %}">Login</a>
+{% endblock %}
